@@ -49,9 +49,6 @@
           "name": "MAPREDUCE2_CLIENT"
         },
         {
-          "name": "HIVE_METASTORE"
-        },
-        {
           "name": "HIVE_CLIENT"
         }
       ],
@@ -109,6 +106,9 @@
       "components": [
         {
           "name": "HIVE_SERVER"
+        },
+        {
+          "name": "HIVE_METASTORE"
         },
         {
           "name": "TEZ_CLIENT"
@@ -256,12 +256,12 @@
           "xasecure.audit.destination.hdfs.batch.filespool.dir": "/var/log/hive/audit/hdfs/spool",
           "xasecure.audit.jaas.Client.option.storeKey": "false",
           "xasecure.audit.destination.hdfs": "false",
-          "xasecure.audit.is.enabled": "false",
+          "xasecure.audit.is.enabled": "true",
           "xasecure.audit.jaas.Client.option.useKeyTab": "true",
-          "xasecure.audit.destination.solr": "false",
+          "xasecure.audit.destination.solr": "true",
           "xasecure.audit.jaas.Client.option.keyTab": "/etc/security/keytabs/hive.service.keytab",
           "xasecure.audit.provider.summary.enabled": "false",
-          "xasecure.audit.destination.hdfs.dir": "hdfs://nnha/ranger/audit",
+          "xasecure.audit.destination.hdfs.dir": "hdfs://nnha/app-logs/ranger/audit",
           "xasecure.audit.jaas.Client.loginModuleName": "com.sun.security.auth.module.Krb5LoginModule",
           "xasecure.audit.jaas.Client.loginModuleControlFlag": "required",
           "xasecure.audit.jaas.Client.option.serviceName": "solr"
@@ -377,9 +377,7 @@
           "yarn.nodemanager.local-dirs": "/hadoopfs/yarn/nodemanager",
           "yarn.nodemanager.log-dirs": "/hadoopfs/yarn/nodemanager/log",
           "yarn.timeline-service.version": "1.5f",
-          "yarn.timeline-service.versions": "1.5f",
-          "yarn.timeline-service.reader.webapp.address": "%HOSTGROUP::master3%:8198",
-          "yarn.timeline-service.reader.webapp.https.address": "%HOSTGROUP::master3%:8199"
+          "yarn.timeline-service.versions": "1.5f"
         }
       }
     },
@@ -388,7 +386,7 @@
         "properties_attributes": {},
         "properties": {
           "xasecure.audit.is.enabled": "true",
-          "xasecure.audit.destination.hdfs.dir": "hdfs://nnha/ranger/audit"
+          "xasecure.audit.destination.hdfs.dir": "hdfs://nnha/app-logs/ranger/audit"
         }
       }
     },
@@ -503,31 +501,6 @@
       }
     },
     {
-      "ranger-hive-audit": {
-        "properties_attributes": {},
-        "properties": {
-          "xasecure.audit.destination.db": "false",
-          "xasecure.audit.destination.solr.zookeepers": "{{{zoo2}}}:2181,{{{zoo3}}}:2181,{{{zoo1}}}:2181/infra-solr",
-          "xasecure.audit.destination.solr.force.use.inmemory.jaas.config": "true",
-          "ranger.plugin.hive.ambari.cluster.name": "{{cluster_name}}",
-          "xasecure.audit.destination.solr.urls": "",
-          "xasecure.audit.destination.solr.batch.filespool.dir": "/var/log/hive/audit/solr/spool",
-          "xasecure.audit.destination.hdfs.batch.filespool.dir": "/var/log/hive/audit/hdfs/spool",
-          "xasecure.audit.jaas.Client.option.storeKey": "false",
-          "xasecure.audit.destination.hdfs": "false",
-          "xasecure.audit.is.enabled": "true",
-          "xasecure.audit.jaas.Client.option.useKeyTab": "true",
-          "xasecure.audit.destination.solr": "true",
-          "xasecure.audit.jaas.Client.option.keyTab": "/etc/security/keytabs/hive.service.keytab",
-          "xasecure.audit.provider.summary.enabled": "false",
-          "xasecure.audit.destination.hdfs.dir": "hdfs://nnha/ranger/audit",
-          "xasecure.audit.jaas.Client.loginModuleName": "com.sun.security.auth.module.Krb5LoginModule",
-          "xasecure.audit.jaas.Client.loginModuleControlFlag": "required",
-          "xasecure.audit.jaas.Client.option.serviceName": "solr"
-        }
-      }
-    },
-    {
       "hdfs-site": {
         "dfs.namenode.rpc-address": "localhost:8020",
         "dfs.nameservices": "nnha",
@@ -596,14 +569,6 @@
         "hive.metastore.uris": "thrift://{{{metastore1}}}:9083,thrift://{{{metastore2}}}:9083",
         "atlas.rest.address": "http://{{{atlasrest}}}:21000",
         "hive.metastore.event.db.notification.api.auth": "false"
-      }
-    },
-    {
-      "sqoop-env": {
-        "properties_attributes": {},
-        "properties": {
-          "sqoop_user": "sqoop"
-        }
       }
     },
     {
